@@ -19,8 +19,8 @@ const Navigation = () => {
               <GraduationCap className="h-5 w-5 text-primary-foreground" />
             </div>
             <div className="hidden sm:block">
-              <span className="font-display font-bold text-lg text-foreground">MAKAUT</span>
-              <span className="text-primary font-semibold ml-1">CGPA</span>
+              <span className="font-display font-bold text-lg text-foreground">CGPA</span>
+              <span className="text-primary font-semibold ml-1">Calculator</span>
             </div>
           </Link>
 
