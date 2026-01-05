@@ -11,8 +11,14 @@ interface SemesterInputProps {
 const SemesterInput = ({ semester, value, onChange, error }: SemesterInputProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
-    // Allow empty or valid numbers between 0-10
-    if (val === "" || (parseFloat(val) >= 0 && parseFloat(val) <= 10)) {
+    // Allow empty string for clearing input
+    if (val === "") {
+      onChange(val);
+      return;
+    }
+    // Parse and validate the number
+    const numVal = parseFloat(val);
+    if (!isNaN(numVal) && numVal >= 0 && numVal <= 10) {
       onChange(val);
     }
   };
@@ -21,11 +27,14 @@ const SemesterInput = ({ semester, value, onChange, error }: SemesterInputProps)
     <div className="group animate-fade-in" style={{ animationDelay: `${semester * 50}ms` }}>
       <Label
         htmlFor={`semester-${semester}`}
-        className="text-sm font-medium text-muted-foreground group-focus-within:text-primary transition-colors"
+        className="text-sm font-medium text-muted-foreground group-focus-within:text-primary transition-colors flex items-center justify-between"
       >
-        Semester {semester}
+        <span>Semester {semester}</span>
+        {value && !error && (
+          <span className="text-xs text-primary font-normal">SGPA</span>
+        )}
       </Label>
-      <div className="relative mt-1.5">
+      <div className="mt-1.5">
         <Input
           id={`semester-${semester}`}
           type="number"
@@ -39,11 +48,6 @@ const SemesterInput = ({ semester, value, onChange, error }: SemesterInputProps)
             error ? "border-destructive" : "border-border hover:border-primary/50"
           }`}
         />
-        {value && !error && (
-          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">
-            SGPA
-          </span>
-        )}
       </div>
       {error && (
         <p className="mt-1 text-xs text-destructive animate-fade-in">{error}</p>
